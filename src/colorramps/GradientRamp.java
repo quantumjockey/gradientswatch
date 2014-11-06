@@ -53,7 +53,7 @@ public class GradientRamp {
 
         for (RampStop boundary : ramp)
         {
-            if (boundary.offset <= scaledVal && boundary.offset > lowerBound) {
+            if (boundary.offset < scaledVal && boundary.offset > lowerBound) {
                 firstStop = boundary;
             }
 
