@@ -8,8 +8,12 @@ import org.junit.Test;
 
 public class GradientRampTest {
 
+    /////////// Fields //////////////////////////////////////////////////////////////////////
+
     Color[] stops;
     GradientRamp ramp;
+
+    /////////// Setup/Teardown //////////////////////////////////////////////////////////////
 
     @Before
     public void setUp() throws Exception {
@@ -22,8 +26,11 @@ public class GradientRampTest {
 
     }
 
+    /////////// Fields //////////////////////////////////////////////////////////////////////
+
     @Test
-    public void GetRampColorValue() throws Exception {
+    public void GetRampColorValue_WithinLimit_ReturnColor() throws Exception {
         Assert.assertEquals(Color.VIOLET, ramp.getRampColorValue(0.0, 0.0, 1.0));
     }
+
 }
