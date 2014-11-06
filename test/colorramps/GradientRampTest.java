@@ -13,7 +13,7 @@ public class GradientRampTest {
 
     @Before
     public void setUp() throws Exception {
-        stops = new Color[]{Color.BLUE, Color.RED, Color.YELLOW};
+        stops = new Color[]{Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.RED};
         ramp = new GradientRamp(stops);
     }
 
@@ -24,6 +24,6 @@ public class GradientRampTest {
 
     @Test
     public void GetRampColorValue() throws Exception {
-        Assert.assertEquals(Color.BLUE, ramp.getRampColorValue(0.0, 0.0, 0.5));
+        Assert.assertEquals(Color.VIOLET, ramp.getRampColorValue(0.0, 0.0, 1.0));
     }
 }
