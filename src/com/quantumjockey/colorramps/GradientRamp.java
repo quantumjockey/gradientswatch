@@ -1,4 +1,4 @@
-package colorramps;
+package com.quantumjockey.colorramps;
 
 import javafx.scene.paint.Color;
 import java.util.ArrayList;
