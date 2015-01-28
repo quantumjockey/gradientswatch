@@ -7,27 +7,41 @@ public class GradientRamp {
 
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
+    public double lowerBound;
     public ArrayList<RampStop> ramp;
     public String tag;
+    public double upperBound;
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
-    public GradientRamp(Color[] colors) {
+    public GradientRamp(Color[] _colors, String _tag, double _lowerBound, double _upperBound){
         int count;
         double unit;
 
         ramp = new ArrayList<>();
-        count = colors.length;
+        tag = _tag;
+
+        lowerBound = _lowerBound;
+        upperBound = _upperBound;
+
+        count = _colors.length;
         unit = 1.0 / ((double)(count - 1));
 
-        for (int i = 0; i < colors.length; i++) {
-            ramp.add(new RampStop(colors[i], i * unit));
+        for (int i = 0; i < _colors.length; i++) {
+            ramp.add(new RampStop(_colors[i], i * unit));
         }
     }
 
+    public GradientRamp(Color[] _colors, double _lowerBound, double _upperBound){
+        this(_colors, "(Unnamed Ramp)", _lowerBound, _upperBound);
+    }
+
     public GradientRamp(Color[] _colors, String _tag) {
-        this(_colors);
-        tag = _tag;
+        this(_colors, _tag, 0.0, 1.0);
+    }
+
+    public GradientRamp(Color[] _colors) {
+        this(_colors, "(Unnamed Ramp)");
     }
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
