@@ -46,7 +46,7 @@ public class GradientRamp {
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
-    public Color getRampColorValue(double offset, double lowerBound, double upperBound){
+    public Color getRampColorValue(double offset){
         double scaledVal;
         int maxByteValue;
         RampStop firstStop, secondStop;

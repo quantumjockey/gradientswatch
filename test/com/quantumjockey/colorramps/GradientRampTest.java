@@ -18,7 +18,7 @@ public class GradientRampTest {
     @Before
     public void setUp() throws Exception {
         stops = new Color[]{Color.VIOLET, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.RED};
-        ramp = new GradientRamp(stops);
+        ramp = new GradientRamp(stops, 0.0, 1.0);
     }
 
     @After
@@ -29,28 +29,28 @@ public class GradientRampTest {
     /////////// Tests ///////////////////////////////////////////////////////////////////////
 
     @Test
+    public void GetRampColorValue_WithinLimit_ReturnColor(){
+        Assert.assertEquals(Color.YELLOW, ramp.getRampColorValue(0.6));
+    }
+
+    @Test
     public void GetRampColorValue_AboveLimit_HighestColorStop(){
-        Assert.assertEquals(Color.RED, ramp.getRampColorValue(2.0, 0.0, 1.0));
+        Assert.assertEquals(Color.RED, ramp.getRampColorValue(2.0));
     }
 
     @Test
     public void GetRampColorValue_BelowLimit_LowestColorStop(){
-        Assert.assertEquals(Color.VIOLET, ramp.getRampColorValue(-1.0, 0.0, 1.0));
+        Assert.assertEquals(Color.VIOLET, ramp.getRampColorValue(-1.0));
     }
 
     @Test
     public void GetRampColorValue_Max_ReturnColor(){
-        Assert.assertEquals(Color.RED, ramp.getRampColorValue(1.0, 0.0, 1.0));
+        Assert.assertEquals(Color.RED, ramp.getRampColorValue(1.0));
     }
 
     @Test
     public void GetRampColorValue_Min_ReturnColor(){
-        Assert.assertEquals(Color.VIOLET, ramp.getRampColorValue(0.0, 0.0, 1.0));
-    }
-
-    @Test
-    public void GetRampColorValue_WithinLimit_ReturnColor(){
-        Assert.assertEquals(Color.YELLOW, ramp.getRampColorValue(0.6, 0.0, 1.0));
+        Assert.assertEquals(Color.VIOLET, ramp.getRampColorValue(0.0));
     }
 
 }
