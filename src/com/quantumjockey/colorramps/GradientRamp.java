@@ -27,7 +27,7 @@ public class GradientRamp {
         count = _colors.length;
         unit = 1.0 / ((double)(count - 1));
 
-        for (int i = 0; i < _colors.length; i++) {
+        for (int i = 0; i < count; i++) {
             ramp.add(new RampStop(_colors[i], i * unit));
         }
     }
