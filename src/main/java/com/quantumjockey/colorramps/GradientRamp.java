@@ -57,19 +57,16 @@ public class GradientRamp {
         scaledVal = offset;
         maxByteValue = 255;
 
-        if (offset < lowerBound){
+        if (offset < lowerBound)
             scaledVal = lowerBound;
-        }
 
-        if (offset > upperBound){
+        if (offset > upperBound)
             scaledVal = upperBound;
-        }
 
         for (RampStop boundary : ramp)
         {
-            if (boundary.offset < scaledVal && boundary.offset > lowerBound) {
+            if (boundary.offset < scaledVal && boundary.offset > lowerBound)
                 firstStop = boundary;
-            }
 
             if (boundary.offset > scaledVal && boundary.offset < upperBound) {
                 secondStop = boundary;
