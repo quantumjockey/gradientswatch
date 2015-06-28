@@ -18,25 +18,23 @@ public class GradientRamp {
 
     /////////// Constructors ////////////////////////////////////////////////////////////////
 
-    public GradientRamp(Color[] _colors, String _tag, double _lowerBound, double _upperBound){
+    public GradientRamp(Color[] _colors, String _tag, double _lowerBound, double _upperBound) {
         int count;
         double unit;
 
-        ramp = new ArrayList<>();
-        tag = _tag;
-
-        lowerBound = _lowerBound;
-        upperBound = _upperBound;
+        this.ramp = new ArrayList<>();
+        this.tag = _tag;
+        this.lowerBound = _lowerBound;
+        this.upperBound = _upperBound;
 
         count = _colors.length;
-        unit = 1.0 / ((double)(count - 1));
+        unit = 1.0 / ((double) (count - 1));
 
-        for (int i = 0; i < count; i++) {
-            ramp.add(new RampStop(_colors[i], i * unit));
-        }
+        for (int i = 0; i < count; i++)
+            this.ramp.add(new RampStop(_colors[i], i * unit));
     }
 
-    public GradientRamp(Color[] _colors, double _lowerBound, double _upperBound){
+    public GradientRamp(Color[] _colors, double _lowerBound, double _upperBound) {
         this(_colors, "(Unnamed Ramp)", _lowerBound, _upperBound);
     }
 
@@ -50,44 +48,37 @@ public class GradientRamp {
 
     /////////// Public Methods ////////////////////////////////////////////////////////////////
 
-    public Color getRampColorValue(double offset){
-        double scaledVal;
-        int maxByteValue;
-        RampStop firstStop, secondStop;
+    public Color getRampColorValue(double offset) {
+        double scaledVal = offset;
+        RampStop firstStop = ramp.get(0);
+        RampStop secondStop = ramp.get(ramp.size() - 1);
 
-        firstStop = ramp.get(0);
-        secondStop = ramp.get(ramp.size() - 1);
+        if (offset < this.lowerBound)
+            scaledVal = this.lowerBound;
 
-        scaledVal = offset;
-        maxByteValue = this.MAX_BYTE_VALUE;
+        if (offset > this.upperBound)
+            scaledVal = this.upperBound;
 
-        if (offset < lowerBound)
-            scaledVal = lowerBound;
-
-        if (offset > upperBound)
-            scaledVal = upperBound;
-
-        for (RampStop boundary : ramp)
-        {
-            if (boundary.offset < scaledVal && boundary.offset > lowerBound)
+        for (RampStop boundary : this.ramp) {
+            if (boundary.offset < scaledVal && boundary.offset > this.lowerBound)
                 firstStop = boundary;
 
-            if (boundary.offset > scaledVal && boundary.offset < upperBound) {
+            if (boundary.offset > scaledVal && boundary.offset < this.upperBound) {
                 secondStop = boundary;
                 break;
             }
         }
 
         return Color.rgb(
-                calculateChannelValue(firstStop, secondStop, 'R', scaledVal, maxByteValue),
-                calculateChannelValue(firstStop, secondStop, 'G', scaledVal, maxByteValue),
-                calculateChannelValue(firstStop, secondStop, 'B', scaledVal, maxByteValue)
+                calculateChannelValue(firstStop, secondStop, 'R', scaledVal, this.MAX_BYTE_VALUE),
+                calculateChannelValue(firstStop, secondStop, 'G', scaledVal, this.MAX_BYTE_VALUE),
+                calculateChannelValue(firstStop, secondStop, 'B', scaledVal, this.MAX_BYTE_VALUE)
         );
     }
 
     /////////// Private Methods ///////////////////////////////////////////////////////////////
 
-    private int calculateChannelValue(RampStop _before, RampStop _after, char _colorComponent, double _offset, int _maxValue){
+    private int calculateChannelValue(RampStop _before, RampStop _after, char _colorComponent, double _offset, int _maxValue) {
         double afterColorChannelValue, afterOffset;
         double beforeColorChannelValue, beforeOffset;
         double channelRange, scaleFactor;
@@ -105,17 +96,17 @@ public class GradientRamp {
         channelRange = afterColorChannelValue - beforeColorChannelValue;
         scaleFactor = (_offset - beforeOffset) / (afterOffset - beforeOffset);
 
-        newChannel = (float)(scaleFactor * channelRange);
-        result = (float)(newChannel + beforeColorChannelValue);
-        byteValue = (int)(((result < max) ? result : max) * this.MAX_BYTE_VALUE);
+        newChannel = (float) (scaleFactor * channelRange);
+        result = (float) (newChannel + beforeColorChannelValue);
+        byteValue = (int) (((result < max) ? result : max) * this.MAX_BYTE_VALUE);
 
         return byteValue;
     }
 
-    private double getRgbChannelValue(Color _color, char _component){
+    private double getRgbChannelValue(Color _color, char _component) {
         double value;
 
-        switch (_component){
+        switch (_component) {
             case 'R':
                 value = _color.getRed();
                 break;
