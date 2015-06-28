@@ -5,6 +5,10 @@ import java.util.ArrayList;
 
 public class GradientRamp {
 
+    /////////// Constants ///////////////////////////////////////////////////////////////////
+
+    private final int MAX_BYTE_VALUE = 255;
+
     /////////// Fields //////////////////////////////////////////////////////////////////////
 
     public double lowerBound;
@@ -55,7 +59,7 @@ public class GradientRamp {
         secondStop = ramp.get(ramp.size() - 1);
 
         scaledVal = offset;
-        maxByteValue = 255;
+        maxByteValue = this.MAX_BYTE_VALUE;
 
         if (offset < lowerBound)
             scaledVal = lowerBound;
@@ -96,14 +100,14 @@ public class GradientRamp {
         beforeOffset = _before.offset;
         beforeColorChannelValue = getRgbChannelValue(_before.color, _colorComponent);
 
-        max = _maxValue / 255;
+        max = _maxValue / this.MAX_BYTE_VALUE;
 
         channelRange = afterColorChannelValue - beforeColorChannelValue;
         scaleFactor = (_offset - beforeOffset) / (afterOffset - beforeOffset);
 
         newChannel = (float)(scaleFactor * channelRange);
         result = (float)(newChannel + beforeColorChannelValue);
-        byteValue = (int)(((result < max) ? result : max) * 255);
+        byteValue = (int)(((result < max) ? result : max) * this.MAX_BYTE_VALUE);
 
         return byteValue;
     }
